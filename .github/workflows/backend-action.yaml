@@ -1,0 +1,54 @@
+name: Build, Push and update the manifest of Backend Docker Image. ArgoCD will take care of deployment.
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+    paths:
+      - 'src/backend/**'
+
+run-name: build-and-push-backend
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_USE_CLI: false
+  TF_LOG: info
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.PROJECT_PAT }}
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Log in to Azure Container Registry
+      run: az acr login --name ${{ secrets.ACR_REGISTRY }}
+        
+    - name: Build Docker image
+      run: docker build -f src/backend/Dockerfile -t ${{ secrets.ACR_REGISTRY }}/todo-backend:${{ github.run_number }} .
+      
+    - name: Push Docker image
+      run: |
+        docker push ${{ secrets.ACR_REGISTRY }}/todo-backend:${{ github.run_number }}
+        
+    - name: Update backend-deployment.yaml with new image tag
+      run: |
+        sed -i "s|image:.*todo-backend:.*|image: ${{ secrets.ACR_REGISTRY }}/todo-backend:${{ github.run_number }}|g" manifests/backend-deployment.yaml
+        
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add manifests/backend-deployment.yaml
+        git commit -m "Update backend image to build ${{ github.run_number }}"
+        git push
