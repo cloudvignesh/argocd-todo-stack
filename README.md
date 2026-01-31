@@ -1,4 +1,4 @@
-# argocd-todo-stack
+# GitOps based deployment for to-do application using ArgoCD
 This project demonstrates a production-ready GitOps workflow using ArgoCD to deploy a three-tier todo application on Azure Kubernetes Service. It showcases best practices for:
 
 - **GitOps methodology** - Git as the single source of truth
