@@ -35,7 +35,7 @@ jobs:
       run: az acr login --name ${{ secrets.ACR_REGISTRY }}    
         
     - name: Build Docker image
-      run: docker build -f src/frontend/Dockerfile -t ${{ secrets.ACR_REGISTRY }}/todo-frontend:${{ github.run_number }} .
+      run: docker build -f src/frontend/Dockerfile -t ${{ secrets.ACR_REGISTRY }}/todo-frontend:${{ github.run_number }} src/frontend
       
     - name: Push Docker image
       run: |
