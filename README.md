@@ -219,7 +219,7 @@ kubectl get application -n argocd
 
 ![architecture](assets/screenshots/argo_healthy_ui.png)
 
-# 🔄 GitOps Workflow
+## GitOps Workflow
 
 ## Making Changes
 
