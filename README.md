@@ -69,6 +69,8 @@ az aks get-credentials \
   --name $AKS_CLUSTER_NAME \
   --overwrite-existing
 ```
+![aks_created](assets/screenshots/akscreated.png)
+
 - Install ALB Controller (Prerequisite: Install Helm)
 
 ```bash
@@ -86,6 +88,11 @@ az role assignment create --assignee-object-id $principalId --assignee-principal
 
 AKS_OIDC_ISSUER="$(az aks show -n "$AKS_NAME" -g "$RESOURCE_GROUP" --query "oidcIssuerProfile.issuerUrl" -o tsv)"
 az identity federated-credential create --name "azure-alb-identity" --identity-name "$IDENTITY_RESOURCE_NAME" --resource-group $RESOURCE_GROUP --issuer "$AKS_OIDC_ISSUER" --subject "system:serviceaccount:azure-alb-system:alb-controller-sa"
+
+HELM_NAMESPACE='<namespace for deployment>'
+CONTROLLER_NAMESPACE='azure-alb-system'
+az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME
+helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-controller --namespace $HELM_NAMESPACE --version 1.9.11 --set albController.namespace=$CONTROLLER_NAMESPACE --set albController.podIdentity.clientID=$(az identity show -g $RESOURCE_GROUP -n azure-alb-identity --query clientId -o tsv)
 ```
 
 ![architecture](assets/screenshots/install-alb.png)
@@ -152,10 +159,11 @@ az network alb association create -g $RESOURCE_GROUP -n $ASSOCIATION_NAME --alb-
 ```
 ![architecture](assets/screenshots/alb_subnet_associate_2.png)
 
+**Important steps:**
 - Deploy the required Gateway API resources (argocd-todo-stack/manifest/gateway-api-configuration/gateway.yaml)
 - Once the gateway is created, create an HTTPRoute for both frontend and backend (argocd-todo-stack/manifest/gateway-api-configuration/httproute-frontend.yaml) and httproute-backend.yaml
 
-- Install ArgoCD on AKS
+- Install ArgoCD on AKS for GitOps based deployment
 ```bash
 # install ArgoCD in k8s
 kubectl create namespace argocd
@@ -321,5 +329,3 @@ For issues, questions, or contributions:
 ---
 
 **Built with ❤️ by [cloudvignesh](https://github.com/cloudvignesh)**
-
-*Last Updated: January 2026*
