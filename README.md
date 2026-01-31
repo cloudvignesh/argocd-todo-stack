@@ -7,6 +7,9 @@ This project demonstrates a production-ready GitOps workflow using ArgoCD to dep
 - **Three-tier architecture** - Frontend(React.js), backend(Node.js), and database(MongoDB) layers
 - **Container orchestration** - Kubernetes-native deployment patterns
 
+## Demo video for this project
+[Demo link](https://drive.google.com/file/d/1LgEwHf9u81HldnCtUgso1TnEICi3RmkK/view?usp=sharing)
+
 # GitOps Workflow with ArgoCD
 ![architecture](assets/screenshots/workflow-arch.png)
 
