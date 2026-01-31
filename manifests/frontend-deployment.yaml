@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: threetierapp.azurecr.io/todo-frontend:1.0
+        image: threetierapp.azurecr.io/todo-frontend:11
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
