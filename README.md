@@ -262,6 +262,10 @@ kubectl get application -n argocd
 
    ![architecture](assets/screenshots/argo_image_updates.png)
 
+4. **Access the to-do application**
+
+![architecture](assets/screenshots/todo_app.png)
+
 
 ## Contributing
 
