@@ -15,5 +15,6 @@ app.get('/ok', (req, res) => {
 
 app.use("/api/tasks", tasks);
 
+// port running on 8080
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
