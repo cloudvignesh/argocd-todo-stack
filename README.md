@@ -266,41 +266,6 @@ kubectl get application -n argocd
 
 ![architecture](assets/screenshots/todo_app.png)
 
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the repository**
-   ```bash
-   # Click the Fork button on GitHub
-   ```
-
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-3. **Make your changes**
-   - Follow existing code style
-   - Update documentation as needed
-   - Test your changes thoroughly
-
-4. **Commit your changes**
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
-
-5. **Push to your fork**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-
-6. **Create a Pull Request**
-   - Provide a clear description of changes
-   - Reference any related issues
-   - Ensure all checks pass
-
 # License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -319,7 +284,7 @@ For issues, questions, or contributions:
 - **Pull Requests**: [Submit a PR](https://github.com/cloudvignesh/argocd-todo-stack/pulls)
 - **Documentation**: Check the [ArgoCD Documentation](https://argo-cd.readthedocs.io/)
 
-# Roadmap
+# Next steps
 
 - [ ] Add Helm chart support
 - [ ] Implement blue-green deployments
