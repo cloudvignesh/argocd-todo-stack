@@ -297,4 +297,4 @@ For issues, questions, or contributions:
 
 ---
 
-**Built with ❤️ by [cloudvignesh](https://github.com/cloudvignesh)**
+**Built by [cloudvignesh](https://github.com/cloudvignesh)**
